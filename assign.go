@@ -9,16 +9,27 @@ import (
 )
 
 var fileName string = "/tmp/dump.html"
+var sites = []string {
+  "www.google.com",
+  "www.safetychanger.com"}
+
 
 func main() {
   fmt.Println("Start processing...")
 
   if len(os.Args) > 1 {
+    // get filename from 1st arg
     fileName = os.Args[1]
+
+    // sites from args
+    if len(os.Args) > 2 {
+      sites = os.Args[2:]
+    }
   }
 
-  write(getPage("www.google.com"))
-  write(getPage("www.safetychanger.com"))
+  for i := 0; i < len(sites); i++ {
+    write(getPage(sites[i]))
+  }
 
   defer fmt.Println("Ready")
 }
